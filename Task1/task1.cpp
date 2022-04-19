@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 
 bool isValidDate(std::string s) {
     if(s[2] != '.' || s[5] != '.') {
@@ -43,23 +44,68 @@ void changeData(std::string &s) {
 
 
 struct record {
-    char* name = "name";
-    char* surname = "surname";
-    char* date = "DD.MM.YYYY";
-    int salary = 0;
+    std::string name = "name";
+    std::string surname = "surname";
+    std::string date = "DD.MM.YYYY";
+    std::string salary = "-1";
 };
 
-enum actions {
-    "quit" = -1,
-    "wait",
-    "add",
-    "list"
+void add_record(std::string path){
+    std::ofstream ofs(path, std::ios_base::app);
+    while (!ofs.is_open()) {
+        std::cout << "Wrong path." << std::endl;
+        changeData(path);
+        ofs.open(path);
+    }
+    record rc;
+    std::cout << "Enter the name:" << std::endl;
+    std::cin >> rc.name;
+    std::cout << "Enter the surname:" << std::endl;
+    std::cin >> rc.surname;
+    std::cout << "Enter the date:" << std::endl;
+    std::cin >> rc.date;
+    while (!isValidDate(rc.date)) {
+        changeData(rc.date);
+        }
+    std::cout << "Enter the salary:" << std::endl;
+    std::cin >> rc.salary;
+    while (!isValidSalary(rc.salary)) {
+        changeData(rc.salary);
+    }
+    ofs << rc.name << " " << rc.surname <<  " " << rc.date << " " << rc.salary << std::endl;
+    ofs.close();
+    std::cout << "The record have made." << std::endl;
+}
+
+void list_table(std::string path) {
+    std::ifstream ifs(path);
+    std::cout << "--------------------------------------" << std::endl;
+    if (!ifs.is_open())
+        std::cout << "Wrong path or there is no such file." << std::endl;
+    else {
+        while (!ifs.eof()){
+            std::string buf;
+            std::getline(ifs, buf);
+            std::cout << buf << std::endl;
+        }
+    }
+     std::cout << std::endl << "--------------------------------------" << std::endl;
+    ifs.close();
+    
 }
 
 int main() {
-    actions action = actions::wait;
-    while (action != actions:: quit)) {
-        std::cout << "What would you like to do:\nadd - to make record\nlist - to output the recrods;
+    std::string path ="/home/alah/HomeWorks/strctrs/structures/Task1/table.txt";
+    std::string action = "";
+    while (action != "q") {
+        std::cout << "What would you like to do:\nadd [a]- to make record\nlist [ls]- to output the records\n[q] - for exit" << std::endl;
         std::cin >> action;
-    
+        if (action == "add" || action == "a")
+            add_record(path);
+        if (action == "list" || action == "ls")
+            list_table(path);
+        if (action == "quit" || action == "q")
+            break;
+    }
+    return 0;
 }
