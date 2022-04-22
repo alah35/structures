@@ -168,8 +168,8 @@ int main() {
         vl.sites.push_back(currentSite);
     }
 
-    std::cout << get_buildings_area(&vl) << std::endl;
-    std::cout << vl.get_village_area() << std::endl;
+    std::cout << "Buildings' area: " << get_buildings_area(&vl) << std::endl;
+    std::cout << "Village's are:" << vl.get_village_area() << std::endl;
 
     return 0;
 }
