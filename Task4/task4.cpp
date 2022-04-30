@@ -18,27 +18,37 @@ int main() {
     while (!is_game_over(winner)) {
         std::cout << "----------ROUND " << roundCounter << "----------" << std::endl;
         show_field();
+        player.show_stats();
 
         std::string direction;
         std::cout << "Make a move (use WASD):" << std::endl;
         std::cin >> direction;
+        if (interpret(direction) == SAVE) {
+            save_game(roundCounter);
+            std::cout << "Game saved" << std::endl;
+            continue;
+        }
+        if (interpret(direction) == LOAD) {
+            load_game(roundCounter);
+            std::cout << "Game loaded" << std::endl;
+            continue;
+        }
         action(interpret(direction), player);
         update_field();
-        std::cout << std::endl;
-        show_field();
-        std::cout << std::endl;
-        
+
         for (int i = 0; i < 5; i++) {
             if (!enemies[i].have_died())
             action(static_cast<Control>(rand() % 4), enemies[i]);
         }
 
         update_field();
-        show_field();
-        player.show_stats();
         roundCounter++;
     }
 
+    if (winner == 'P')
+        std::cout << "You WON!" << std::endl;
+    if (winner == 'E')
+        std::cout << "You lose" << std::endl;
 
     return 0;
 }

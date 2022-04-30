@@ -138,16 +138,66 @@ void action(Control command, Character &ch) { // ch - current haracter, which is
                  ch.locate.x += ch.locate.x != 39;
             }
             break;
-        case SAVE:
-            break;
-        case LOAD:
-            break;
         case ERR:
-            break;
-        case QUIT:
             break;
         default:
             break;
     }
 }
 
+void save_game(int &round) {
+    std::ofstream save("/home/alah/HomeWorks/strctrs/structures/Task4/save.bin",
+                        std::ios::binary);
+    int len = player.name.length();
+    save.write((char*) &len, sizeof(len));
+    save.write(player.name.c_str(), len);
+    save.write((char*) &player.health, sizeof(player.health));
+    save.write((char*) &player.armor, sizeof(player.armor));
+    save.write((char*) &player.locate.y, sizeof(player.locate.y));
+    save.write((char*) &player.locate.x, sizeof(player.locate.x));
+    save.write((char*) &player.enemy, sizeof(player.enemy));
+
+    for (int i = 0; i < 5; i++) {
+        len = enemies[i].name.length();
+        save.write((char*) &len, sizeof(len));
+        save.write(enemies[i].name.c_str(), len);
+        save.write((char*) &enemies[i].health, sizeof(player.health));
+        save.write((char*) &enemies[i].armor, sizeof(player.armor));
+        save.write((char*) &enemies[i].locate.y, sizeof(player.locate.y));
+        save.write((char*) &enemies[i].locate.x, sizeof(player.locate.x));
+        save.write((char*) &enemies[i].enemy, sizeof(player.enemy));
+    }
+
+    save.write((char*) &round, sizeof(round));
+   
+    save.write((char*) &field[0][0], sizeof(field));
+}
+
+void load_game(int &round) {
+    std::ifstream load("/home/alah/HomeWorks/strctrs/structures/Task4/save.bin",
+                        std::ios::binary);
+    int len;
+    load.read((char*) &len, sizeof(len));
+    player.name.resize(len);
+    load.read((char*) player.name.c_str(), len);
+    load.read((char*) &player.health, sizeof(player.health));
+    load.read((char*) &player.armor, sizeof(player.armor));
+    load.read((char*) &player.locate.y, sizeof(player.locate.y));
+    load.read((char*) &player.locate.x, sizeof(player.locate.x));
+    load.read((char*) &player.enemy, sizeof(player.enemy));
+
+    for (int i = 0; i < 5; i++) {
+        load.read((char*) &len, sizeof(len));
+        enemies[i].name.resize(len);
+        load.read((char*) enemies[i].name.c_str(), len);
+        load.read((char*) &enemies[i].health, sizeof(player.health));
+        load.read((char*) &enemies[i].armor, sizeof(player.armor));
+        load.read((char*) &enemies[i].locate.y, sizeof(player.locate.y));
+        load.read((char*) &enemies[i].locate.x, sizeof(player.locate.x));
+        load.read((char*) &enemies[i].enemy, sizeof(player.enemy));
+    }
+
+    load.read((char*) &round, sizeof(round));
+
+    load.read((char*) &field[0][0], sizeof(field));
+}

@@ -10,7 +10,6 @@ enum Control {
     D,
     LOAD,
     SAVE,
-    STAT
 };
 
 Control interpret(std::string s) {
@@ -28,8 +27,6 @@ Control interpret(std::string s) {
         return LOAD;
     if (s == "Save" || s == "save")
         return SAVE;
-    if (s == "STAT" || s == "stat")
-        return STAT;
     return ERR;
 }
 

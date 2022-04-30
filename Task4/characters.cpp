@@ -69,6 +69,7 @@ struct Character {
 
     void show_stats() {
         std::cout << "--Stats--" << std::endl;
+        std::cout << name << std::endl;
         std::cout << "Health: " << health << std::endl;
         std::cout << "Armor: " << armor << std::endl;
         std::cout << "Damage: " << damage << std::endl;
