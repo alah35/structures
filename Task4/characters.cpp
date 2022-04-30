@@ -1,5 +1,5 @@
-#include <iostream>
 #include <string>
+#include <iostream>
 
 struct Location {
 
@@ -13,13 +13,17 @@ struct Location {
         x = b;
     }
 
+    bool operator==(const Location& right ) {
+        return y == right.y && x == right.x;
+    }
+
     int y;
     int x;
 };
 
 struct Character {
     std::string name;
-    unsigned int health = 50;
+    int health = 50;
     int armor = 0;
     int damage = 15;
     Location locate{};
@@ -52,7 +56,15 @@ struct Character {
     }
 
     bool have_died() {
-        return health == 0;
+        return health <= 0;
+    }
+
+    void attack(Character &target) {
+        target.armor -= damage;
+        if (target.armor < 0) {
+            target.health += target.armor;
+            target.armor = 0;
+        }
     }
 
     void show_stats() {

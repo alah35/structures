@@ -9,7 +9,8 @@ enum Control {
     S,
     D,
     LOAD,
-    SAVE
+    SAVE,
+    STAT
 };
 
 Control interpret(std::string s) {
@@ -27,14 +28,9 @@ Control interpret(std::string s) {
         return LOAD;
     if (s == "Save" || s == "save")
         return SAVE;
+    if (s == "STAT" || s == "stat")
+        return STAT;
     return ERR;
 }
 
-void action(Control command, Character &ch) {
-    switch (command) {
-        case W:     
-            {
-                ch.locate.y += ch.locate.y != 40;
-            }
-    }
-}
+

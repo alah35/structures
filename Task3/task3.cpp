@@ -151,6 +151,10 @@ int main() {
                     std::cin >> a;
                     Vector c = scale(v1, a);
                     c.output();
+                    c = v1 * a;
+                    c.output();
+                    c = v1 * (1/a);
+                    c.output();
                 }
                 break;
                 case LENGTH: 
