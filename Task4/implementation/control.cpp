@@ -1,17 +1,5 @@
-#include <string>
-#include "characters.cpp"
-
-enum Control {
-    ERR = -2,
-    QUIT,
-    W,
-    A,
-    S,
-    D,
-    LOAD,
-    SAVE,
-};
-
+#include "../headers/control.h"
+    
 Control interpret(std::string s) {
     if (s == "quit" || s == "q")
         return QUIT;

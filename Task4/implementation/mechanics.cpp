@@ -1,9 +1,9 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include "control.cpp"
+#include "../headers/control.h"
 
-char field[40][40]; // these definition in the global space is an easier way to control
+char field[40][40]; // these definitions in the global space is an easier way to control
 Character enemies[5]; // game process
 Character player;
 
@@ -98,7 +98,7 @@ void do_attack(Character &ch, int y, int x) {
     }
 }
 
-void action(Control command, Character &ch) { // ch - current haracter, which is moving now
+void action(Control command, Character &ch) { // ch - current character, which is moving now
     if (ch.have_died())
         return;
     switch (command) {

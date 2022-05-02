@@ -1,7 +1,6 @@
-#include <string>
-#include <iostream>
+#include "../headers/characters.h"
 
-struct Location {
+struct  Location {
 
     Location() {
         y = 0;
@@ -21,7 +20,7 @@ struct Location {
     int x;
 };
 
-struct Character {
+ struct Character {
     std::string name;
     int health = 50;
     int armor = 0;
