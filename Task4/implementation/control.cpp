@@ -1,5 +1,5 @@
 #include "../headers/control.h"
-    
+
 Control interpret(std::string s) {
     if (s == "quit" || s == "q")
         return QUIT;

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include "../headers/control.h"
+#include "../headers/mechanics.h"
 
 char field[40][40]; // these definitions in the global space is an easier way to control
 Character enemies[5]; // game process
@@ -60,7 +60,7 @@ void update_field() {
 bool is_game_over(char &w) {
 
     if (player.have_died()) {
-        w = 'P';
+        w = 'E';
         return true;
     }
 
@@ -70,7 +70,7 @@ bool is_game_over(char &w) {
     }
     
     if (enemyAlive == 0) {
-        w = 'E';
+        w = 'P';
         return true;
     }
     

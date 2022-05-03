@@ -1,4 +1,10 @@
-#include "mechanics.cpp"
+#include "headers/mechanics.h"
+#include <string>
+#include <iostream>
+
+extern char field[40][40]; // these definitions in the global space is an easier way to control
+extern Character enemies[5]; // game process
+extern Character player;
 
 int main() {
     fill_field();
@@ -33,6 +39,10 @@ int main() {
             std::cout << "Game loaded" << std::endl;
             continue;
         }
+        if (interpret(direction) == QUIT) {
+            save_game(roundCounter); // autosave
+            return 0;
+        }
         action(interpret(direction), player);
         update_field();
 
@@ -48,7 +58,7 @@ int main() {
     if (winner == 'P')
         std::cout << "You WON!" << std::endl;
     if (winner == 'E')
-        std::cout << "You lose" << std::endl;
+        std::cout << "You lose. Game Over" << std::endl;
 
     return 0;
 }
