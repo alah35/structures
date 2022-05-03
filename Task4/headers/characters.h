@@ -4,17 +4,12 @@
 #include <iostream>
 
 struct Location {
-    Location() {
-        y = 0;
-        x = 0;
-    }
-    Location(int a, int b) {
-        y = a;
-        x = b;
-    }
-    bool operator==(const Location &right) {
-        return y == right.y && x == right.x;
-    }
+
+    Location();
+    Location(int a, int b);
+
+    bool operator==(const Location &right);
+
     int y;
     int x;
 };
@@ -27,51 +22,17 @@ struct Character {
     Location locate;
     bool enemy;
 
-    void create_player() {
-        do {
-            std::cout << "What is the name of your character?" << std::endl;
-            std::cin >> name;
-            std::cout << "Enter characteristics:" << std::endl << "Health: ";
-            std::cin >> health;
-            std::cout << "Armor: ";
-            std::cin >> armor;
-            std::cout << "Damage: ";
-            std::cin >> damage;
-            enemy = false; 
-        } while (!is_valid_character()); 
-    }
+    void create_player();
 
-    bool is_valid_character() {
-        return health > 0 && armor >= 0 && damage > 0;
-    }
+    bool is_valid_character();
 
-    void create_enemy() {
-        name = "Enemy#";
-        health = rand() % 101 + 50;
-        armor = rand() % 51;
-        damage = rand() % 16 + 15;
-        enemy = true;
-    }
+    void create_enemy();
 
-    bool have_died() {
-        return health <= 0;
-    }
+    bool have_died();
 
-    void attack(Character &target) {
-        target.armor -= damage;
-        if (target.armor < 0) {
-            target.health += target.armor;
-            target.armor = 0;
-        }
-    }
+    void attack(Character &target);
 
-    void show_stats() {
-        std::cout << "--Stats--" << std::endl;
-        std::cout << name << std::endl;
-        std::cout << "Health: " << health << std::endl;
-        std::cout << "Armor: " << armor << std::endl;
-        std::cout << "Damage: " << damage << std::endl;
-    }
+    void show_stats();
 };
 
 #endif
